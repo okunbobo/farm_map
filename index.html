@@ -2,21 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>전주 삼천동·용복동·중인동 필지 지도 (지적도+스카이뷰)</title>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=48a43660c47d975dfae7166c8cf43b55&autoload=false"></script>
     <style>
-        html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
-        #map { width: 100%; height: 100vh; position: relative; }
+        html, body { 
+            width: 100%; 
+            height: 100%; 
+            height: -webkit-fill-available;
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden;
+        }
+        #map { 
+            width: 100%; 
+            height: 100vh; 
+            height: 100dvh;
+            position: relative; 
+        }
         
-        /* 버튼 공통 스타일 */
+        /* 아이폰 iOS 대응 버튼 컨테이너 스타일 */
         .btn-container {
-            position: absolute;
-            bottom: 20px;
+            position: fixed;
+            bottom: calc(30px + env(safe-area-inset-bottom, 0px));
             right: 20px;
-            z-index: 10;
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
         .map-control-btn {
             background-color: #ffffff;
@@ -32,6 +47,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            -webkit-appearance: none;
         }
         .map-control-btn.active {
             background-color: #e6f7ff;
@@ -89,7 +105,7 @@ window.onload = function() {
         // 스카이뷰(HYBRID) 기본 적용
         map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
 
-        // ★ 지적편집도(필지 경계선 및 지번 레이어) 기본 켜기
+        // 지적편집도(필지 경계선 및 지번 레이어) 기본 켜기
         map.addOverlayMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT);
 
         // 지도/스카이뷰 및 확대/축소 컨트롤 추가
